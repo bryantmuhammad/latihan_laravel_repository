@@ -32,6 +32,6 @@ Route::delete('/customer/{customer}', [CustomerController::class, 'destroy'])->n
 Route::get('/product', [ProductController::class, 'index'])->name('product.index');
 Route::get('/product/create', [ProductController::class, 'create'])->name('product.create');
 Route::post('/product/store', [ProductController::class, 'store'])->name('product.store');
-Route::get('/product/{customer}/edit', [ProductController::class, 'edit'])->name('product.edit');
-Route::put('/product/{customer}', [ProductController::class, 'update'])->name('product.update');
-Route::delete('/product/{customer}', [ProductController::class, 'destroy'])->name('product.destroy');
+Route::get('/product/{product}/edit', [ProductController::class, 'edit'])->name('product.edit');
+Route::put('/product/{product}', [ProductController::class, 'update'])->name('product.update');
+Route::delete('/product/{product}', [ProductController::class, 'destroy'])->name('product.destroy');

@@ -11,10 +11,11 @@ class Product extends Model
     use HasFactory;
     protected $guarded = ['id'];
 
-    protected function productPrice(): Attribute
+    protected function productName(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => 'Rp ' . number_format($value, 0, ',', '.'),
+            get: fn ($value) => ucwords($value),
+            set: fn ($value) => ucwords($value),
         );
     }
 }

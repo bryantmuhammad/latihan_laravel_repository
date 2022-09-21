@@ -80,7 +80,7 @@ class CustomerController extends Controller
      */
     public function update(CustomerRequest $request, Customer $customer)
     {
-        $this->customer_repo->update($request->validated(), $customer->id);
+        $this->customer_repo->update($request->validated(), $customer);
         Alert::success('Berhasil', 'Berhasil merubah customer!');
         return redirect()->route('customer.index');
     }

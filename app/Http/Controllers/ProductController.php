@@ -10,8 +10,14 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class ProductController extends Controller
 {
+    /** @var ProductRepository */
     private $product_repo;
 
+
+    /**
+     * Constructor for autoload repo & service
+     * 
+     */
     public function __construct(ProductRepository $productRepository)
     {
         $this->product_repo = $productRepository;
@@ -50,7 +56,7 @@ class ProductController extends Controller
     public function store(ProductRequest $request)
     {
         $this->product_repo->create($request->validated(), $request->file('product_photo'));
-        Alert::success('Berhasil', 'Berhasil menambahkan customer!');
+        Alert::success('Berhasil', 'Berhasil menambahkan produk!');
         return redirect()->route('product.index');
     }
 
@@ -64,7 +70,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        return $this->view('product.edit', 'Edit Produk', compact('product'));
     }
 
     /**
@@ -74,9 +80,11 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(ProductRequest $request, Product $product)
     {
-        //
+        $this->product_repo->update($request->validated(), $product, $request->file('product_photo'));
+        Alert::success('Berhasil', 'Berhasil merubah produk!');
+        return redirect()->route('product.index');
     }
 
     /**

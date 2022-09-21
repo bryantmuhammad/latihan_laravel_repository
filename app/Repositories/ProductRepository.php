@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Product;
+use Illuminate\Support\Facades\Storage;
 
 class ProductRepository extends BaseRepository
 {
@@ -15,6 +16,16 @@ class ProductRepository extends BaseRepository
     {
         // Store File
         $input['product_photo'] = $file->store('product-images');
-        Parent::create($input);
+        parent::create($input);
+    }
+
+    public function update($input, $model, $file = NULL)
+    {
+        if ($file) {
+            // Store File
+            $input['product_photo'] = $file->store('product-images');
+            Storage::delete($model->product_photo);
+        }
+        parent::update($input, $model);
     }
 }

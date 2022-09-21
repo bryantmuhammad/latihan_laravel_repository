@@ -18,14 +18,25 @@
         </x-forms.input-group>
     </div>
 
-    <div class="col-lg-6 col-md-6 col-sm-12">
-        <x-forms.input-group label="Foto Produk *(JPG | JPEG | PNG)" name="product_photo" customAttribute="min=1"
-            id="image" type="file" required="true">
-        </x-forms.input-group>
-    </div>
+    @if (isset($product))
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <x-forms.input-group label="Foto Produk *(JPG | JPEG | PNG)" name="product_photo" customAttribute="min=1"
+                id="image" type="file">
+            </x-forms.input-group>
+        </div>
+    @else
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <x-forms.input-group label="Foto Produk *(JPG | JPEG | PNG)" name="product_photo" customAttribute="min=1"
+                id="image" type="file" required="true">
+            </x-forms.input-group>
+        </div>
+    @endif
+
+
 
     <div class="col-lg-12 col-md-12 col-sm-12">
-        <img src="" id="preview" alt="Preview Image" width="200" height="150">
+        <img src="{{ isset($product->product_photo) ? asset('storage/' . $product->product_photo) : '' }}"
+            id="preview" alt="Preview Image" width="200" height="150">
     </div>
 
 </div>

@@ -43,10 +43,9 @@ abstract class BaseRepository
         return $query->find($id, $columns);
     }
 
-    public function update($input, $id)
+    public function update($input, $model, $file = NULL)
     {
         $query = $this->model->newQuery();
-        $model = $query->findOrFail($id);
         $model->fill($input);
         $model->save();
 
