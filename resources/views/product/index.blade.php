@@ -31,7 +31,7 @@
                                         width="150" height="120">
                                 </a>
                             </td>
-                            <td>{{ $product->price }}</td>
+                            <td>{{ $product->product_price }}</td>
                             <td class="text-center">
                                 <a href="{{ route('product.edit', $product->id) }}" class="btn btn-sm btn-success">Edit</a>
                                 <form action="{{ route('product.destroy', $product->id) }}" method="post" class="d-inline">

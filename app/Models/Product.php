@@ -11,7 +11,7 @@ class Product extends Model
     use HasFactory;
     protected $guarded = ['id'];
 
-    protected function customerName(): Attribute
+    protected function productPrice(): Attribute
     {
         return Attribute::make(
             get: fn ($value) => 'Rp ' . number_format($value, 0, ',', '.'),
