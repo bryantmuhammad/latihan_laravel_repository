@@ -16,7 +16,7 @@ class ProductRepository extends BaseRepository
     {
         // Store File
         $input['product_photo'] = $file->store('product-images');
-        parent::create($input);
+        return parent::create($input);
     }
 
     public function update($input, $model, $file = NULL)
@@ -26,6 +26,6 @@ class ProductRepository extends BaseRepository
             $input['product_photo'] = $file->store('product-images');
             Storage::delete($model->product_photo);
         }
-        parent::update($input, $model);
+        return parent::update($input, $model);
     }
 }
