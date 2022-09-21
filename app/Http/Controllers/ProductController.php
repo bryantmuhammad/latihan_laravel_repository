@@ -61,7 +61,6 @@ class ProductController extends Controller
     }
 
 
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -95,6 +94,8 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $this->product_repo->delete($product->id);
+        Alert::success('Berhasil', 'Berhasil menghapus produk!');
+        return redirect()->route('product.index');
     }
 }

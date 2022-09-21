@@ -45,7 +45,6 @@ abstract class BaseRepository
 
     public function update($input, $model, $file = NULL)
     {
-        $query = $this->model->newQuery();
         $model->fill($input);
         $model->save();
 
