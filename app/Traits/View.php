@@ -41,7 +41,8 @@ trait View
         $navbar = [
             'Home'      => '/',
             'Customer'  => '/customer',
-            'Produk' => '/product'
+            'Produk' => '/product',
+            'Order' => '/order'
         ];
         return $navbar;
     }

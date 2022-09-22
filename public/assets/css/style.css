@@ -1,0 +1,10 @@
+.product-list {
+    cursor: pointer;
+    color:black;
+}
+
+
+#tableproduk tr td:nth-child(even) {
+    padding-top: 15px;
+    
+}

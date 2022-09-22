@@ -98,4 +98,17 @@ class ProductController extends Controller
         Alert::success('Berhasil', 'Berhasil menghapus produk!');
         return redirect()->route('product.index');
     }
+
+    public function list_product()
+    {
+        $product = $this->product_repo->all();
+        return response()->json([
+            'product' => $product
+        ]);
+    }
+
+    public function show(Product $product)
+    {
+        return $product;
+    }
 }
