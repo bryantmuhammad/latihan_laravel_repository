@@ -47,26 +47,29 @@
                             </x-forms.input-group>
                         </div>
                         <div class="col-lg-12">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col" width="10%">#</th>
-                                        <th scope="col">Nama Produk</th>
-                                        <th scope="col" width="15%">Qty</th>
-                                        <th scope="col">Total</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="tableproduk">
+                            <form action="">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" width="10%">#</th>
+                                            <th scope="col">Nama Produk</th>
+                                            <th scope="col" width="15%">Qty</th>
+                                            <th scope="col">Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tableproduk">
 
 
-                                </tbody>
-                                <tbody>
-                                    <tr>
-                                        <td class="text-center" colspan="3"><b>Total</b></td>
-                                        <td><b id="total">Rp 0</b></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-center" colspan="3"><b>Total</b></td>
+                                            <td><b id="total">Rp 0</b></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <button class="btn btn-primary">Order</button>
+                            </form>
                         </div>
                     </div>
                 </div>

@@ -31,8 +31,8 @@ Route::delete('/customer/{customer}', [CustomerController::class, 'destroy'])->n
 
 // Produk Route
 Route::get('/product', [ProductController::class, 'index'])->name('product.index');
-Route::get('/product/{product}', [ProductController::class, 'show']);
 Route::get('/product/create', [ProductController::class, 'create'])->name('product.create');
+Route::get('/product/{product}', [ProductController::class, 'show']);
 Route::get('/product/list', [ProductController::class, 'list_product']);
 Route::post('/product/store', [ProductController::class, 'store'])->name('product.store');
 Route::get('/product/{product}/edit', [ProductController::class, 'edit'])->name('product.edit');
