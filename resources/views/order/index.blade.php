@@ -19,39 +19,40 @@
                                     </div>
                                 </div>
                             </div>
-
                         @empty
                             <h1>Tidak ada produk</h1>
                         @endforelse
-
-
                     </div>
                 </div>
+
                 <div class="col-lg-6 col-md-6 col-sm-12">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-12">
-                            <div class="mb-3">
-                                <label for="customer" class="mb-2">Customer</label>
-                                <select name="customer" id="customer" class="form-control">
-                                    <option value="0">- Pilih Customer -</option>
-                                    @foreach ($customers as $customer)
-                                        <option value="{{ $customer->id }}">{{ $customer->customer_name }}</option>
-                                    @endforeach
-                                </select>
+                    <form action="{{ route('order.store') }}" method="post">
+                        @csrf
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <div class="mb-3">
+                                    <label for="customer" class="mb-2">Customer</label>
+                                    <select name="customer_id" id="customer" class="form-control">
+                                        <option value="">- Pilih Customer -</option>
+                                        @foreach ($customers as $customer)
+                                            <option value="{{ $customer->id }}">{{ $customer->customer_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-12">
-                            <x-forms.input-group label="Tanggal Order" name="order_date"
-                                value="{{ old('order_date', $customer->order_date ?? '') }}" id="orderdate" required="true"
-                                placeholder="Masukan Tanggal Order" type="date">
-                            </x-forms.input-group>
-                        </div>
-                        <div class="col-lg-12">
-                            <form action="">
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <x-forms.input-group label="Tanggal Order" name="order_date"
+                                    value="{{ old('order_date', $customer->order_date ?? '') }}" id="orderdate"
+                                    required="true" placeholder="Masukan Tanggal Order" type="date">
+                                </x-forms.input-group>
+                            </div>
+                            <div class="col-lg-12">
+
+
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <th scope="col" width="10%">#</th>
+                                            <th class="text-center" scope="col" width="10%">#</th>
                                             <th scope="col">Nama Produk</th>
                                             <th scope="col" width="15%">Qty</th>
                                             <th scope="col">Total</th>
@@ -69,10 +70,12 @@
                                     </tbody>
                                 </table>
                                 <button class="btn btn-primary">Order</button>
-                            </form>
+
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
+
 
             </div>
 

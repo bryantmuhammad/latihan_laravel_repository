@@ -1,6 +1,5 @@
 const baseUrl = window.location.origin;
 const buttonDelete = document.querySelectorAll(".delete");
-
 if (buttonDelete) {
     [...buttonDelete].forEach((button) => {
         button.addEventListener("click", function (e) {
@@ -12,8 +11,18 @@ if (buttonDelete) {
     });
 }
 
-const productCard = document.querySelectorAll(".product-list");
+// Preview Image Before Upload
+const image = document.getElementById("image");
+if (image) {
+    image.addEventListener("change", function (e) {
+        const [file] = this.files;
+        if (file) {
+            document.getElementById("preview").src = URL.createObjectURL(file);
+        }
+    });
+}
 
+const productCard = document.querySelectorAll(".product-list");
 if (productCard) {
     productCard.forEach((card) => {
         card.addEventListener("click", async function (e) {
@@ -33,9 +42,10 @@ if (productCard) {
     });
 }
 
+// Membuat tbody untuk order
 function drawTable(product) {
-    const { id, product_name, product_photo, product_price, product_stok } =
-        product;
+    const { id, product_name, product_price, product_stok } = product;
+
     const tr = document.createElement("tr");
     const tdHapus = document.createElement("td");
     const tdNamaProduk = document.createElement("td");
@@ -68,7 +78,7 @@ function drawTable(product) {
 
     tdHapus.appendChild(btnHapus);
     tdNamaProduk.appendChild(document.createTextNode(product_name));
-    tdQty.appendChild(inputProduct);
+    tdNamaProduk.appendChild(inputProduct);
     tdQty.appendChild(inputQty);
     tdTotal.appendChild(
         document.createTextNode(product_price.toLocaleString("id-ID"))
@@ -83,6 +93,7 @@ function drawTable(product) {
     tbody.appendChild(tr);
 }
 
+//Membuat element input
 function drawInput(attributs) {
     let input = document.createElement("INPUT");
     input.classList.add("form-control");
@@ -94,12 +105,12 @@ function drawInput(attributs) {
     return input;
 }
 
+// Set total table order
 function setTotal() {
     const table = document.getElementById("tableproduk").children;
     let total = 0;
     [...table].forEach((tr) => {
-        let qty = tr.children[2].children[1].value;
-
+        let qty = tr.children[2].children[0].value;
         total += parseFloat(tr.lastChild.dataset.price) * parseFloat(qty);
     });
 
@@ -107,6 +118,7 @@ function setTotal() {
         "Rp " + total.toLocaleString("id-ID");
 }
 
+// Update total saat qty dirubah
 function updateProduct(e) {
     const qty = parseInt(e.target.value);
     const max = parseInt(e.target.max);
@@ -117,6 +129,7 @@ function updateProduct(e) {
     setTotal();
 }
 
+// Delete produk pada order
 function deleteProduct(e) {
     e.preventDefault();
     confirmDelete("Yakin ingin menghapus produk?", function () {
@@ -142,6 +155,7 @@ function confirmDelete(title, callback) {
     });
 }
 
+// Saat card produk di klik cari data-id
 function getProductId(element, number) {
     if (element.classList.contains("product-list")) return element.dataset.id;
     return getProductId(element.parentElement);
