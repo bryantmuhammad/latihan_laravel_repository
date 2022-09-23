@@ -53,6 +53,15 @@ class OrderController extends Controller
         return redirect()->route('order.index');
     }
 
+    public function show(Order $order)
+    {
+        $data = [
+            'order' => $order->load('order_product.product')
+        ];
+
+        return $this->view('order.detail', 'Detail Order', $data);
+    }
+
     public function history()
     {
         $data = [

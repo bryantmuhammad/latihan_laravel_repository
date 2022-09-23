@@ -9,20 +9,18 @@
             <table class="table table-striped table-hover">
                 <thead>
                     <tr>
-                        <th scope="col">Tanggal Order</th>
-                        <th scope="col">Nomor Order</th>
-                        <th scope="col">Nama Customer</th>
-                        <th scope="col">Detail Order</th>
+                        <th scope="col">Nama Produk</th>
+                        <th scope="col">Qty</th>
+                        <th scope="col">Total Harga</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($orders as $order)
+                    @forelse ($order->order_product as $order_product)
                         <tr>
-                            <td>{{ $order->order_date->isoFormat('D MMMM Y') }}</td>
-                            <td>{{ $order->order_number }}</td>
-                            <td>{{ $order->customer->customer_name }}</td>
-                            <td><a href="{{ route('order.show', $order->id) }}" class="btn btn-sm btn-success">Detail</a>
-                            </td>
+                            <td>{{ $order_product->product->product_name }}</td>
+                            <td>{{ $order_product->product_qty }}</td>
+                            <td>@currency($order_product->total_price)</td>
+
                         </tr>
                     @empty
                         <tr>
@@ -34,7 +32,7 @@
                 </tbody>
             </table>
 
-            {{ $orders->links() }}
+
 
         </div>
     </div>
