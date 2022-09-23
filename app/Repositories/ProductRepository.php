@@ -28,4 +28,13 @@ class ProductRepository extends BaseRepository
         }
         return parent::update($input, $model);
     }
+
+    public function decrement_stok($request)
+    {
+        foreach ($request as $key => $value) {
+            $id_product = $value['product_id'];
+            $qty        = $value['product_qty'];
+            $this->model->where('id', $id_product)->decrement('product_stok', $qty);
+        }
+    }
 }

@@ -31,7 +31,16 @@ abstract class BaseRepository
 
     public function create($input, $file = NULL)
     {
-        $model = $this->model->create($input);
+        $model = $this->model->newInstance($input);
+        $model->save($input);
+
+        return $model;
+    }
+
+    public function create_batch($input)
+    {
+        $model = $this->model->newInstance($input);
+        $model->insert($input);
 
         return $model;
     }

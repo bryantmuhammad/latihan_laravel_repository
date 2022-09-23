@@ -10,4 +10,9 @@ class OrderRepository extends BaseRepository
     {
         return Order::class;
     }
+
+    public function get_number_order()
+    {
+        return 'ORD-' . date('ymd') . generateRandomString(4);
+    }
 }

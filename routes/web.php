@@ -42,3 +42,6 @@ Route::delete('/product/{product}', [ProductController::class, 'destroy'])->name
 // Order Route
 Route::get('/order', [OrderController::class, 'index'])->name('order.index');
 Route::post('/order/store', [OrderController::class, 'store'])->name('order.store');
+
+// Order History
+Route::get('/order/history', [OrderController::class, 'history'])->name('order.history');

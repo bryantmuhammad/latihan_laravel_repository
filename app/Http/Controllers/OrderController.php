@@ -2,13 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\OrderRequest;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Customer;
+use App\Services\OrderService;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class OrderController extends Controller
 {
+    private $order_service;
+
+    public function __construct(OrderService $orderService)
+    {
+        $this->order_service = $orderService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -23,15 +33,6 @@ class OrderController extends Controller
         return $this->view('order.index', 'Order Produk', $data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -39,53 +40,25 @@ class OrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(OrderRequest $request)
     {
-        return $request;
+        $order = $this->order_service->create_order($request->validated());
+
+        if ($order->status) {
+            Alert::success('Berhasil', $order->message);
+            return redirect()->route('order.index');
+        }
+
+        Alert::error('Gagal', $order->message);
+        return redirect()->route('order.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Order $order)
+    public function history()
     {
-        //
-    }
+        $data = [
+            'orders' => Order::with('customer')->paginate(20)
+        ];
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Order $order)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Order $order)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Order $order)
-    {
-        //
+        return $this->view('order.history', "History Order", $data);
     }
 }
