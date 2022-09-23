@@ -32,7 +32,6 @@ class OrderService
         $list_product   = [];
         $count          = count($request['product_id']);
 
-        // if($count == )
         for ($i = 0; $i < $count; $i++) {
             $product_id = $request['product_id'][$i];
             $qty        = $request['qty'][$i];
@@ -61,7 +60,10 @@ class OrderService
         $order_number = $this->order_repo->get_number_order();
         $product_list = $this->generate_product_from_request_array($request, $order_number);
         $response = create_response();
-        if (!$product_list) $response->message = "Produk tidak ditemukan";
+        if (!$product_list) {
+            $response->message = "Produk tidak ditemukan";
+            return $response;
+        }
 
         try {
             DB::transaction(function () use ($request, $order_number, $product_list) {
@@ -80,6 +82,7 @@ class OrderService
         } catch (\Exception $e) {
             $response->status_code = 500;
             $response->message = "Terjadi kesalahan server!";
+            return $response;
         }
 
         $response->status = TRUE;
