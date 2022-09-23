@@ -38,9 +38,9 @@ class OrderService
             $product    = $products->firstWhere('id', $product_id);
 
             // Jika produk nya tidak ada dalam database
-            if (!$product)  $list_product = FALSE;
+            if (!$product)  return FALSE;
             // Jika qty lebih besar dari jumlah stok
-            if ($qty > $product->product_stok) $list_product = FALSE;
+            if ($qty > $product->product_stok) return FALSE;
 
             $total_price = $qty * $product->product_price;
             $list_product[] =   [
@@ -52,6 +52,7 @@ class OrderService
                 'updated_at'        => Carbon::now()
             ];
         }
+
         return $list_product;
     }
 
